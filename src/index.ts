@@ -12,6 +12,8 @@ import { CustomerService } from './customer';
 import { TaxRateService } from './taxRate';
 import { SalaryService } from './salary';
 import { EmployeeService } from './employee';
+import { ChequeService } from './cheque';
+import { BankStatementService } from './bankStatement';
 
 class TimberClient {
   expense: ExpenseService;
@@ -25,6 +27,8 @@ class TimberClient {
   taxRate: TaxRateService;
   salary: SalaryService;
   employee: EmployeeService;
+  cheque: ChequeService;
+  bankStatement: BankStatementService;
 
   constructor(apiKey: string, options: { baseURL?: string } = {}) {
     const baseURL = `${options.baseURL || 'http://localhost:4010'}/api/v1/user/sdk`;
@@ -48,6 +52,8 @@ class TimberClient {
     this.taxRate = new TaxRateService(http);
     this.salary = new SalaryService(http);
     this.employee = new EmployeeService(http);
+    this.cheque = new ChequeService(http);
+    this.bankStatement = new BankStatementService(http);
   }
 }
 
