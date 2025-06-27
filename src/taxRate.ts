@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosResponse } from 'axios';
 
 export interface TaxRateData {
   name: string;
@@ -6,7 +6,7 @@ export interface TaxRateData {
   is_active: boolean;
   description?: string;
   country?: string;
-  type:string
+  type: string;
   [key: string]: any;
 }
 
@@ -21,16 +21,16 @@ export interface TaxRateQueryParams {
   limit?: number;
 }
 
-  /**
+/**
  * Service for Tax Rate
- * 
- * @example 
+ *
+ * @example
  * ```ts
  * const { createClient } = require('timber-sdk-dev');
  * const client = createClient('your-api-key');
  * const taxRate = await client.taxRate.list({ page: 1, limit: 10 });
  * console.log(taxRate.data);
- * ```    
+ * ```
  */
 export class TaxRateService {
   private http: AxiosInstance;
@@ -39,10 +39,8 @@ export class TaxRateService {
     this.http = http;
   }
 
-  async list(
-    params: TaxRateQueryParams = {}
-  ): Promise<AxiosResponse<TaxRate[]>> {
-    return await this.http.get<TaxRate[]>("/customer/tax-rate", { params });
+  async list(params: TaxRateQueryParams = {}): Promise<AxiosResponse<TaxRate[]>> {
+    return await this.http.get<TaxRate[]>('/customer/tax-rate', { params });
   }
 
   async get(id: string): Promise<AxiosResponse<TaxRate>> {

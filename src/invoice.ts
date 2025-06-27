@@ -1,5 +1,5 @@
-import { AxiosInstance, AxiosResponse } from "axios";
-import FormData from "form-data";
+import { AxiosInstance, AxiosResponse } from 'axios';
+import FormData from 'form-data';
 
 export type NewInvoiceItem = {
   id: string;
@@ -12,7 +12,7 @@ export type NewInvoiceItem = {
 };
 
 export interface InvoiceData {
-  mode: "create" | "edit";
+  mode: 'create' | 'edit';
   payment_method: string;
   title: string;
   company: string;
@@ -97,10 +97,8 @@ export class InvoiceService {
    * ```
    */
 
-  async list(
-    params: InvoiceQueryParams = {}
-  ): Promise<AxiosResponse<Invoice[]>> {
-    return await this.http.get<Invoice[]>("/customer/invoice", { params });
+  async list(params: InvoiceQueryParams = {}): Promise<AxiosResponse<Invoice[]>> {
+    return await this.http.get<Invoice[]>('/customer/invoice', { params });
   }
 
   async create(data: InvoiceData): Promise<AxiosResponse<Invoice>> {
@@ -109,35 +107,32 @@ export class InvoiceService {
     for (const key in data) {
       const value = (data as any)[key];
 
-      if (key === "items" || key === "customer" || key === "biller") {
+      if (key === 'items' || key === 'customer' || key === 'biller') {
         formData.append(key, JSON.stringify(value));
-      } else if (key === "logo" && value && typeof value.pipe === "function") {
+      } else if (key === 'logo' && value && typeof value.pipe === 'function') {
         // This is a ReadStream
-        formData.append("logo", value);
+        formData.append('logo', value);
       } else if (value instanceof Date) {
         formData.append(key, value.toISOString());
       } else if (value !== undefined && value !== null) {
         formData.append(key, value.toString());
       }
     }
-    return await this.http.post<Invoice>("/customer/invoice", formData, {
+    return await this.http.post<Invoice>('/customer/invoice', formData, {
       headers: formData.getHeaders(),
     });
   }
-  async update(
-    id: string,
-    data: Partial<InvoiceData>
-  ): Promise<AxiosResponse<Invoice>> {
+  async update(id: string, data: Partial<InvoiceData>): Promise<AxiosResponse<Invoice>> {
     const formData = new FormData();
 
     for (const key in data) {
       const value = (data as any)[key];
 
-      if (key === "items" || key === "customer" || key === "biller") {
+      if (key === 'items' || key === 'customer' || key === 'biller') {
         formData.append(key, JSON.stringify(value));
-      } else if (key === "logo" && value && typeof value.pipe === "function") {
+      } else if (key === 'logo' && value && typeof value.pipe === 'function') {
         // This is a ReadStream
-        formData.append("logo", value);
+        formData.append('logo', value);
       } else if (value instanceof Date) {
         formData.append(key, value.toISOString());
       } else if (value !== undefined && value !== null) {
@@ -162,15 +157,9 @@ export class InvoiceService {
    * ```
    */
 
-  async delete(
-    id: string,
-    data: { remarks: string }
-  ): Promise<AxiosResponse<{ message: string }>> {
-    return await this.http.delete<{ message: string }>(
-      `/customer/invoice/${id}`,
-      {
-        data,
-      }
-    );
+  async delete(id: string, data: { remarks: string }): Promise<AxiosResponse<{ message: string }>> {
+    return await this.http.delete<{ message: string }>(`/customer/invoice/${id}`, {
+      data,
+    });
   }
 }

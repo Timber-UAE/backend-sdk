@@ -1,6 +1,5 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosResponse } from 'axios';
 import FormData from 'form-data';
-
 
 export interface CreateVendorPaymentRequest {
   title: string;
@@ -35,7 +34,7 @@ export interface CreateVendorPaymentRequest {
       vat: number;
       discount: number;
       total: number;
-    }
+    },
   ];
   terms: string;
   notes: string;
@@ -99,10 +98,8 @@ export class VendorPaymentService {
    * console.log(vendorPayments.data);
    * ```
    */
-  async list(
-    params: VendorPaymentQueryParams
-  ): Promise<AxiosResponse<VendorPayment[]>> {
-    return await this.http.get<VendorPayment[]>("/customer/purchase", {
+  async list(params: VendorPaymentQueryParams): Promise<AxiosResponse<VendorPayment[]>> {
+    return await this.http.get<VendorPayment[]>('/customer/purchase', {
       params,
     });
   }
@@ -182,14 +179,12 @@ export class VendorPaymentService {
    * console.log(response.data);
    * ```
    */
-  async create(
-    data: CreateVendorPaymentRequest
-  ): Promise<AxiosResponse<VendorPayment>> {
+  async create(data: CreateVendorPaymentRequest): Promise<AxiosResponse<VendorPayment>> {
     const formData = new FormData();
     try {
       Object.entries(data).forEach(([key, value]: any) => {
-        if (key === "customer" || key === "biller") {
-          if (typeof value === "object" && value !== null) {
+        if (key === 'customer' || key === 'biller') {
+          if (typeof value === 'object' && value !== null) {
             Object.entries(value).forEach(([subKey, subValue]: any) => {
               if (subValue) {
                 formData.append(`${key}[${subKey}]`, subValue);
@@ -198,17 +193,17 @@ export class VendorPaymentService {
           }
         } else if (Array.isArray(value)) {
           value.forEach((item, index) => {
-            if (typeof item === "object" && item !== null) {
+            if (typeof item === 'object' && item !== null) {
               Object.entries(item).forEach(([subKey, subValue]: any) => {
                 formData.append(`${key}[${index}][${subKey}]`, subValue);
               });
-            } else if (typeof item === "string" || item instanceof Blob) {
+            } else if (typeof item === 'string' || item instanceof Blob) {
               formData.append(key, item);
             }
           });
         } else if (value instanceof Date) {
           formData.append(key, value.toISOString());
-        } else if (typeof value === "string" || value instanceof Blob) {
+        } else if (typeof value === 'string' || value instanceof Blob) {
           formData.append(key, value);
         } else if (value) {
           formData.append(key, value as any);
@@ -218,10 +213,10 @@ export class VendorPaymentService {
       return Promise.reject(error);
     }
     if (data.logo) {
-      formData.append("file", data.logo);
+      formData.append('file', data.logo);
     }
-    return await this.http.post<VendorPayment>("/customer/purchase", formData, {
-      headers: formData.getHeaders()
+    return await this.http.post<VendorPayment>('/customer/purchase', formData, {
+      headers: formData.getHeaders(),
     });
   }
 
@@ -247,8 +242,8 @@ export class VendorPaymentService {
     const formData = new FormData();
     try {
       Object.entries(data).forEach(([key, value]: any) => {
-        if (key === "customer" || key === "biller") {
-          if (typeof value === "object" && value !== null) {
+        if (key === 'customer' || key === 'biller') {
+          if (typeof value === 'object' && value !== null) {
             Object.entries(value).forEach(([subKey, subValue]: any) => {
               if (subValue) {
                 formData.append(`${key}[${subKey}]`, subValue);
@@ -257,17 +252,17 @@ export class VendorPaymentService {
           }
         } else if (Array.isArray(value)) {
           value.forEach((item, index) => {
-            if (typeof item === "object" && item !== null) {
+            if (typeof item === 'object' && item !== null) {
               Object.entries(item).forEach(([subKey, subValue]: any) => {
                 formData.append(`${key}[${index}][${subKey}]`, subValue);
               });
-            } else if (typeof item === "string" || item instanceof Blob) {
+            } else if (typeof item === 'string' || item instanceof Blob) {
               formData.append(key, item);
             }
           });
         } else if (value instanceof Date) {
           formData.append(key, value.toISOString());
-        } else if (typeof value === "string" || value instanceof Blob) {
+        } else if (typeof value === 'string' || value instanceof Blob) {
           formData.append(key, value);
         } else if (value) {
           formData.append(key, value as any);
@@ -277,15 +272,11 @@ export class VendorPaymentService {
       return Promise.reject(error);
     }
     if (data.logo) {
-      formData.append("file", data.logo);
+      formData.append('file', data.logo);
     }
-    return await this.http.put<VendorPayment>(
-      `/customer/purchase/${id}`,
-      formData,
-      {
-        headers: formData.getHeaders()
-      }
-    );
+    return await this.http.put<VendorPayment>(`/customer/purchase/${id}`, formData, {
+      headers: formData.getHeaders(),
+    });
   }
 
   /**
@@ -302,8 +293,6 @@ export class VendorPaymentService {
    */
 
   async delete(id: string): Promise<AxiosResponse<{ message: string }>> {
-    return await this.http.patch<{ message: string }>(
-      `/customer/purchase/${id}`
-    );
+    return await this.http.patch<{ message: string }>(`/customer/purchase/${id}`);
   }
 }

@@ -1,6 +1,9 @@
 node_modules/
+.husky/
 src/
 
 .DS_Store
 
 tsconfig.json
+eslint.config.mjs
+.prettierrc

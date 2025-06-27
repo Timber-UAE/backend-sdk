@@ -1,11 +1,10 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosResponse } from 'axios';
 
 export interface CreateExpenseCategoryRequest {
   category: string;
 }
 
-export type UpdateExpenseCategoryRequest =
-  Partial<CreateExpenseCategoryRequest>;
+export type UpdateExpenseCategoryRequest = Partial<CreateExpenseCategoryRequest>;
 
 export interface ExpenseCategory {
   _id: string;
@@ -57,15 +56,10 @@ export class ExpenseCategoryService {
    * ```
    */
 
-  async list(
-    params: ExpenseCategoryQueryParams
-  ): Promise<AxiosResponse<ExpenseCategory[]>> {
-    return await this.http.get<ExpenseCategory[]>(
-      "/customer/expense/category",
-      {
-        params,
-      }
-    );
+  async list(params: ExpenseCategoryQueryParams): Promise<AxiosResponse<ExpenseCategory[]>> {
+    return await this.http.get<ExpenseCategory[]>('/customer/expense/category', {
+      params,
+    });
   }
 
   /**
@@ -84,13 +78,8 @@ export class ExpenseCategoryService {
    * ```
    */
 
-  async create(
-    data: CreateExpenseCategoryRequest
-  ): Promise<AxiosResponse<ExpenseCategory>> {
-    return await this.http.post<ExpenseCategory>(
-      "/customer/expense/category",
-      data
-    );
+  async create(data: CreateExpenseCategoryRequest): Promise<AxiosResponse<ExpenseCategory>> {
+    return await this.http.post<ExpenseCategory>('/customer/expense/category', data);
   }
 
   /**
@@ -112,10 +101,7 @@ export class ExpenseCategoryService {
     id: string,
     data: CreateExpenseCategoryRequest
   ): Promise<AxiosResponse<ExpenseCategory>> {
-    return await this.http.put<ExpenseCategory>(
-      `/customer/expense/category/${id}`,
-      data
-    );
+    return await this.http.put<ExpenseCategory>(`/customer/expense/category/${id}`, data);
   }
 
   /**
@@ -132,8 +118,6 @@ export class ExpenseCategoryService {
    */
 
   async delete(id: string): Promise<AxiosResponse<{ message: string }>> {
-    return await this.http.delete<{ message: string }>(
-      `/customer/expense/category/${id}`
-    );
+    return await this.http.delete<{ message: string }>(`/customer/expense/category/${id}`);
   }
 }

@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosResponse } from 'axios';
 
 export interface InvoicePaymentData {
   invoice: string;
@@ -57,13 +57,10 @@ export class InvoicePaymentService {
 
   async list(
     params: InvoicePaymentQueryParams = {
-      invoice: "",
+      invoice: '',
     }
   ): Promise<AxiosResponse<InvoicePayment[]>> {
-    return await this.http.get<InvoicePayment[]>(
-      "/customer/invoice/payment-records",
-      { params }
-    );
+    return await this.http.get<InvoicePayment[]>('/customer/invoice/payment-records', { params });
   }
 
   /**
@@ -90,13 +87,8 @@ export class InvoicePaymentService {
    * console.log(response.data);
    * ```
    */
-  async create(
-    data: InvoicePaymentData
-  ): Promise<AxiosResponse<InvoicePayment>> {
-    return await this.http.post<InvoicePayment>(
-      "/customer/invoice/payment-records",
-      data
-    );
+  async create(data: InvoicePaymentData): Promise<AxiosResponse<InvoicePayment>> {
+    return await this.http.post<InvoicePayment>('/customer/invoice/payment-records', data);
   }
 
   /**
@@ -118,10 +110,7 @@ export class InvoicePaymentService {
     id: string,
     data: Partial<InvoicePaymentData>
   ): Promise<AxiosResponse<InvoicePayment>> {
-    return await this.http.put<InvoicePayment>(
-      `/customer/invoice/payment-records/${id}`,
-      data
-    );
+    return await this.http.put<InvoicePayment>(`/customer/invoice/payment-records/${id}`, data);
   }
 
   /**
@@ -138,9 +127,7 @@ export class InvoicePaymentService {
    */
 
   async get(id: string): Promise<AxiosResponse<InvoicePayment>> {
-    return await this.http.get<InvoicePayment>(
-      `/customer/invoice/payment-records/${id}`
-    );
+    return await this.http.get<InvoicePayment>(`/customer/invoice/payment-records/${id}`);
   }
 
   /**
@@ -156,15 +143,9 @@ export class InvoicePaymentService {
    * ```
    */
 
-  async delete(
-    id: string,
-    data: { remarks: string }
-  ): Promise<AxiosResponse<{ message: string }>> {
-    return await this.http.delete<{ message: string }>(
-      `/customer/invoice/payment-records/${id}`,
-      {
-        data,
-      }
-    );
+  async delete(id: string, data: { remarks: string }): Promise<AxiosResponse<{ message: string }>> {
+    return await this.http.delete<{ message: string }>(`/customer/invoice/payment-records/${id}`, {
+      data,
+    });
   }
 }

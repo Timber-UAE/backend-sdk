@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosResponse } from 'axios';
 
 export interface CreateExpenseRequest {
   type: string;
@@ -58,7 +58,7 @@ export class ExpenseService {
    * ```
    */
   async list(params: ExpenseQueryParams): Promise<AxiosResponse<Expense[]>> {
-    return await this.http.get<Expense[]>("/customer/expense", { params });
+    return await this.http.get<Expense[]>('/customer/expense', { params });
   }
 
   /**
@@ -98,7 +98,7 @@ export class ExpenseService {
    * ```
    */
   async create(data: CreateExpenseRequest): Promise<AxiosResponse<Expense>> {
-    return await this.http.post<Expense>("/customer/expense", data);
+    return await this.http.post<Expense>('/customer/expense', data);
   }
 
   /**
@@ -115,10 +115,7 @@ export class ExpenseService {
    * console.log(updated.data);
    * ```
    */
-  async update(
-    id: string,
-    data: UpdateExpenseRequest
-  ): Promise<AxiosResponse<Expense>> {
+  async update(id: string, data: UpdateExpenseRequest): Promise<AxiosResponse<Expense>> {
     return await this.http.put<Expense>(`/customer/expense/${id}`, data);
   }
 
@@ -135,8 +132,6 @@ export class ExpenseService {
    * ```
    */
   async delete(id: string): Promise<AxiosResponse<{ message: string }>> {
-    return await this.http.patch<{ message: string }>(
-      `/customer/expense/${id}`
-    );
+    return await this.http.patch<{ message: string }>(`/customer/expense/${id}`);
   }
 }

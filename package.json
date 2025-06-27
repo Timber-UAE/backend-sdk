@@ -24,20 +24,37 @@
     }
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
     "build": "tsc",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "prepare": "husky install",
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix"
+  },
+  "lint-staged": {
+    "*.{js,ts,json,md}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   },
   "dependencies": {
     "axios": "^1.10.0",
     "dotenv": "^16.5.0",
-    "form-data": "^4.0.3"
+    "form-data": "^4.0.3",
+    "typescript-eslint": "^8.35.0"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
     "@types/node": "^24.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.1",
+    "globals": "^16.2.0",
+    "husky": "^8.0.0",
     "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
     "typedoc": "^0.28.5",
     "typedoc-plugin-markdown": "^4.7.0",
     "typescript": "^5.8.3"

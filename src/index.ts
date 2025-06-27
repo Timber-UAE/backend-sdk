@@ -1,17 +1,17 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
-import axios from "axios";
-import { ExpenseService } from "./expense";
-import { RawExpenseService } from "./rawExpense";
-import { VendorPaymentService } from "./vendorPayment";
-import { ExpenseCategoryService } from "./expenseCategory";
-import { BillPaymentService } from "./billPayment";
-import { InvoiceService } from "./invoice";
-import { InvoicePaymentService } from "./invoicePayment";
-import { CustomerService } from "./customer";
-import { TaxRateService } from "./taxRate";
-import { SalaryService } from "./salary";
-import { EmployeeService } from "./employee";
+import axios from 'axios';
+import { ExpenseService } from './expense';
+import { RawExpenseService } from './rawExpense';
+import { VendorPaymentService } from './vendorPayment';
+import { ExpenseCategoryService } from './expenseCategory';
+import { BillPaymentService } from './billPayment';
+import { InvoiceService } from './invoice';
+import { InvoicePaymentService } from './invoicePayment';
+import { CustomerService } from './customer';
+import { TaxRateService } from './taxRate';
+import { SalaryService } from './salary';
+import { EmployeeService } from './employee';
 
 class TimberClient {
   expense: ExpenseService;
@@ -27,15 +27,13 @@ class TimberClient {
   employee: EmployeeService;
 
   constructor(apiKey: string, options: { baseURL?: string } = {}) {
-    const baseURL = `${
-      options.baseURL || "http://localhost:4010"
-    }/api/v1/user/sdk`;
+    const baseURL = `${options.baseURL || 'http://localhost:4010'}/api/v1/user/sdk`;
 
     const http = axios.create({
       baseURL: baseURL,
       headers: {
         Authorization: `ApiKey ${apiKey}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -55,7 +53,7 @@ class TimberClient {
 
 export const createClient = (apiKey: string, options = {}) => {
   if (!apiKey) {
-    throw new Error("API key is required");
+    throw new Error('API key is required');
   }
   return new TimberClient(apiKey, options);
 };

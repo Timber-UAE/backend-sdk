@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosResponse } from 'axios';
 
 export interface CreateSalaryData {
   month: number;
@@ -38,10 +38,10 @@ export interface SalaryQueryParams {
   filters: string;
 }
 
-  /**
+/**
  * Service for Salary
- * 
- * @example 
+ *
+ * @example
  * ```ts
  * const { createClient } = require('timber-sdk-dev');
  * const client = createClient('your-api-key');
@@ -71,7 +71,7 @@ export class SalaryService {
    */
 
   async list(params: SalaryQueryParams): Promise<AxiosResponse<Salary[]>> {
-    return await this.http.get<Salary[]>("/customer/salary", {
+    return await this.http.get<Salary[]>('/customer/salary', {
       params,
     });
   }
@@ -86,7 +86,7 @@ export class SalaryService {
    * ```ts
    * const salary = await client.salary.get('salary_id_here');
    * console.log(salary.data);
-   * ```  
+   * ```
    */
 
   async get(id: string): Promise<AxiosResponse<Salary>> {
@@ -120,11 +120,11 @@ export class SalaryService {
    * };
    * const response = await client.salary.create(newSalary);
    * console.log(response.data);
-   * ```  
+   * ```
    */
 
   async create(data: CreateSalaryData): Promise<AxiosResponse<Salary>> {
-    return await this.http.post<Salary>("/customer/salary", data);
+    return await this.http.post<Salary>('/customer/salary', data);
   }
 
   /**
@@ -139,13 +139,10 @@ export class SalaryService {
    * const updates = { basic_salary: 60000 };
    * const updated = await client.salary.update('salary_id_here', updates);
    * console.log(updated.data);
-   * ```  
+   * ```
    */
 
-  async update(
-    id: string,
-    data: Partial<CreateSalaryData>
-  ): Promise<AxiosResponse<Salary>> {
+  async update(id: string, data: Partial<CreateSalaryData>): Promise<AxiosResponse<Salary>> {
     return await this.http.put<Salary>(`/customer/salary/${id}`, data);
   }
 }

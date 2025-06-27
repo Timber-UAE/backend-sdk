@@ -1,10 +1,10 @@
-import { AxiosInstance, AxiosResponse } from "axios";
-import FormData from "form-data";
+import { AxiosInstance, AxiosResponse } from 'axios';
+import FormData from 'form-data';
 
 export interface CreateBillPaymentRequest {
   invoice: string;
   date: string;
-  payment_method: "cash" | "bank" | "card" | "cheque" | "net_banking" | "other";
+  payment_method: 'cash' | 'bank' | 'card' | 'cheque' | 'net_banking' | 'other';
   cheque_no?: string;
   cheque_date?: string;
   cheque_due_date?: string;
@@ -68,15 +68,10 @@ export class BillPaymentService {
    * ```
    */
 
-  async list(
-    params: BillPaymentQueryParams
-  ): Promise<AxiosResponse<BillPayment[]>> {
-    return await this.http.get<BillPayment[]>(
-      "/customer/purchase/payment-record",
-      {
-        params,
-      }
-    );
+  async list(params: BillPaymentQueryParams): Promise<AxiosResponse<BillPayment[]>> {
+    return await this.http.get<BillPayment[]>('/customer/purchase/payment-record', {
+      params,
+    });
   }
 
   /**
@@ -104,36 +99,30 @@ export class BillPaymentService {
    * ```
    */
 
-  async create(
-    data: CreateBillPaymentRequest
-  ): Promise<AxiosResponse<BillPayment>> {
+  async create(data: CreateBillPaymentRequest): Promise<AxiosResponse<BillPayment>> {
     const formData = new FormData();
-    formData.append("invoice", data.invoice);
-    formData.append("date", data.date);
-    formData.append("payment_method", data.payment_method);
+    formData.append('invoice', data.invoice);
+    formData.append('date', data.date);
+    formData.append('payment_method', data.payment_method);
     if (data.cheque_no) {
-      formData.append("cheque_no", data.cheque_no);
+      formData.append('cheque_no', data.cheque_no);
     }
     if (data.cheque_date) {
-      formData.append("cheque_date", data.cheque_date);
+      formData.append('cheque_date', data.cheque_date);
     }
     if (data.cheque_due_date) {
-      formData.append("cheque_due_date", data.cheque_due_date);
+      formData.append('cheque_due_date', data.cheque_due_date);
     }
     if (data.bank_name) {
-      formData.append("bank_name", data.bank_name);
+      formData.append('bank_name', data.bank_name);
     }
-    formData.append("amount", data.amount.toString());
+    formData.append('amount', data.amount.toString());
     if (data.file) {
-      formData.append("file", data.file[0]);
+      formData.append('file', data.file[0]);
     }
-    return await this.http.post<BillPayment>(
-      "/customer/purchase/payment-record",
-      formData,
-      {
-        headers: formData.getHeaders(),
-      }
-    );
+    return await this.http.post<BillPayment>('/customer/purchase/payment-record', formData, {
+      headers: formData.getHeaders(),
+    });
   }
 
   /**
@@ -151,37 +140,30 @@ export class BillPaymentService {
    * ```
    */
 
-  async update(
-    id: string,
-    data: CreateBillPaymentRequest
-  ): Promise<AxiosResponse<BillPayment>> {
+  async update(id: string, data: CreateBillPaymentRequest): Promise<AxiosResponse<BillPayment>> {
     const formData = new FormData();
-    formData.append("invoice", data.invoice);
-    formData.append("date", data.date);
-    formData.append("payment_method", data.payment_method);
+    formData.append('invoice', data.invoice);
+    formData.append('date', data.date);
+    formData.append('payment_method', data.payment_method);
     if (data.cheque_no) {
-      formData.append("cheque_no", data.cheque_no);
+      formData.append('cheque_no', data.cheque_no);
     }
     if (data.cheque_date) {
-      formData.append("cheque_date", data.cheque_date);
+      formData.append('cheque_date', data.cheque_date);
     }
     if (data.cheque_due_date) {
-      formData.append("cheque_due_date", data.cheque_due_date);
+      formData.append('cheque_due_date', data.cheque_due_date);
     }
     if (data.bank_name) {
-      formData.append("bank_name", data.bank_name);
+      formData.append('bank_name', data.bank_name);
     }
-    formData.append("amount", data.amount.toString());
+    formData.append('amount', data.amount.toString());
     if (data.file) {
-      formData.append("file", data.file[0]);
+      formData.append('file', data.file[0]);
     }
-    return await this.http.put<BillPayment>(
-      `/customer/purchase/payment-record/${id}`,
-      formData,
-      {
-        headers: formData.getHeaders(),
-      }
-    );
+    return await this.http.put<BillPayment>(`/customer/purchase/payment-record/${id}`, formData, {
+      headers: formData.getHeaders(),
+    });
   }
 
   /**
@@ -198,8 +180,6 @@ export class BillPaymentService {
    */
 
   async delete(id: string): Promise<AxiosResponse<{ message: string }>> {
-    return await this.http.delete<{ message: string }>(
-      `/customer/purchase/payment-record/${id}`
-    );
+    return await this.http.delete<{ message: string }>(`/customer/purchase/payment-record/${id}`);
   }
 }

@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosResponse } from 'axios';
 
 export interface CustomerData {
   name: string;
@@ -6,10 +6,10 @@ export interface CustomerData {
   mobile?: string;
   country_code?: string;
   country?: string;
-  city:string
-  role: 'customer' | 'vendor' | 'biller'
-  address:string
-  trn?:string
+  city: string;
+  role: 'customer' | 'vendor' | 'biller';
+  address: string;
+  trn?: string;
   [key: string]: any;
 }
 
@@ -26,8 +26,8 @@ export interface CustomerQueryParams {
 
 /**
  * Service for Customer
- * 
- * @example 
+ *
+ * @example
  * ```ts
  * const { createClient } = require('timber-sdk-dev');
  * const client = createClient('your-api-key');
@@ -56,10 +56,8 @@ export class CustomerService {
    * ```
    */
 
-  async list(
-    params: CustomerQueryParams = {}
-  ): Promise<AxiosResponse<Customer[]>> {
-    return await this.http.get<Customer[]>("/customer/customer", { params });
+  async list(params: CustomerQueryParams = {}): Promise<AxiosResponse<Customer[]>> {
+    return await this.http.get<Customer[]>('/customer/customer', { params });
   }
 
   /**
@@ -72,11 +70,11 @@ export class CustomerService {
    * ```ts
    * const customer = await client.customer.get('customer_id_here');
    * console.log(customer.data);
-   * ```  
+   * ```
    */
 
   async create(data: CustomerData): Promise<AxiosResponse<Customer>> {
-    return await this.http.post<Customer>("/customer/customer", data);
+    return await this.http.post<Customer>('/customer/customer', data);
   }
 
   /**
@@ -91,13 +89,10 @@ export class CustomerService {
    * const updates = { name: "John Doe" };
    * const updated = await client.customer.update('customer_id_here', updates);
    * console.log(updated.data);
-   * ```  
+   * ```
    */
 
-  async update(
-    id: string,
-    data: Partial<CustomerData>
-  ): Promise<AxiosResponse<Customer>> {
+  async update(id: string, data: Partial<CustomerData>): Promise<AxiosResponse<Customer>> {
     return await this.http.put<Customer>(`/customer/customer/${id}`, data);
   }
 
@@ -111,12 +106,10 @@ export class CustomerService {
    * ```ts
    * const response = await client.customer.delete('customer_id_here');
    * console.log(response.data.message);
-   * ```  
+   * ```
    */
 
   async delete(id: string): Promise<AxiosResponse<{ message: string }>> {
-    return await this.http.delete<{ message: string }>(
-      `/customer/customer/${id}`
-    );
+    return await this.http.delete<{ message: string }>(`/customer/customer/${id}`);
   }
 }

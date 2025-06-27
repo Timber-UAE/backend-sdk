@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosResponse } from 'axios';
 
 export interface CreateRawExpenseRequest {
   file: File;
@@ -17,7 +17,7 @@ export interface RawExpense {
       url: string;
       size: number;
       extension: string;
-    }
+    },
   ];
   created_at: string;
   updated_at: string;
@@ -62,10 +62,8 @@ export class RawExpenseService {
    * ```
    */
 
-  async list(
-    params: RawExpenseQueryParams
-  ): Promise<AxiosResponse<RawExpense[]>> {
-    return await this.http.get<RawExpense[]>("/customer/expense/raw", {
+  async list(params: RawExpenseQueryParams): Promise<AxiosResponse<RawExpense[]>> {
+    return await this.http.get<RawExpense[]>('/customer/expense/raw', {
       params,
     });
   }
@@ -86,15 +84,13 @@ export class RawExpenseService {
    * ```
    */
 
-  async create(
-    data: CreateRawExpenseRequest
-  ): Promise<AxiosResponse<RawExpense>> {
+  async create(data: CreateRawExpenseRequest): Promise<AxiosResponse<RawExpense>> {
     const formData = new FormData();
-    formData.append("file", data.file);
+    formData.append('file', data.file);
 
-    return await this.http.post<RawExpense>("/customer/expense/raw", formData, {
+    return await this.http.post<RawExpense>('/customer/expense/raw', formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
     });
   }
@@ -113,8 +109,6 @@ export class RawExpenseService {
    */
 
   async delete(id: string): Promise<AxiosResponse<{ message: string }>> {
-    return await this.http.delete<{ message: string }>(
-      `/customer/expense/raw/${id}`
-    );
+    return await this.http.delete<{ message: string }>(`/customer/expense/raw/${id}`);
   }
 }

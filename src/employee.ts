@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosResponse } from 'axios';
 
 export interface CreateEmployeeRequest {
   employee_id: string;
@@ -24,14 +24,14 @@ export interface Employee {
 
 /**
  * Service for Employee
- * 
- * @example 
+ *
+ * @example
  * ```ts
  * const { createClient } = require('timber-sdk-dev');
  * const client = createClient('your-api-key');
  * const employee = await client.employee.list({ page: 1, limit: 10 });
  * console.log(employee.data);
- * ```  
+ * ```
  */
 
 export interface EmployeeQueryParams {
@@ -57,15 +57,15 @@ export class EmployeeService {
    * ```ts
    * const employees = await client.employee.list({ page: 1, limit: 5 });
    * console.log(employees.data);
-   * ```  
+   * ```
    */
   async list(params: EmployeeQueryParams): Promise<AxiosResponse<Employee[]>> {
-    return await this.http.get<Employee[]>("/customer/employee", {
+    return await this.http.get<Employee[]>('/customer/employee', {
       params,
     });
   }
 
-    /**
+  /**
    * Create a new employee.
    *
    * @param data - Employee creation payload
@@ -86,11 +86,11 @@ export class EmployeeService {
    * };
    * const response = await client.employee.create(newEmployee);
    * console.log(response.data);
-   * ```  
+   * ```
    */
 
   async create(data: CreateEmployeeRequest): Promise<AxiosResponse<Employee>> {
-    return await this.http.post<Employee>("/customer/employee", data);
+    return await this.http.post<Employee>('/customer/employee', data);
   }
 
   /**
@@ -103,7 +103,7 @@ export class EmployeeService {
    * ```ts
    * const employee = await client.employee.get('employee_id_here');
    * console.log(employee.data);
-   * ```  
+   * ```
    */
 
   async get(id: string): Promise<AxiosResponse<Employee>> {
@@ -122,13 +122,10 @@ export class EmployeeService {
    * const updates = { basic_salary: 60000 };
    * const updated = await client.employee.update('employee_id_here', updates);
    * console.log(updated.data);
-   * ```  
+   * ```
    */
 
-  async update(
-    id: string,
-    data: CreateEmployeeRequest
-  ): Promise<AxiosResponse<Employee>> {
+  async update(id: string, data: CreateEmployeeRequest): Promise<AxiosResponse<Employee>> {
     return await this.http.put<Employee>(`/customer/employee/${id}`, data);
   }
 
@@ -142,12 +139,10 @@ export class EmployeeService {
    * ```ts
    * const response = await client.employee.delete('employee_id_here');
    * console.log(response.data.message);
-   * ```  
+   * ```
    */
 
   async delete(id: string): Promise<AxiosResponse<{ message: string }>> {
-    return await this.http.delete<{ message: string }>(
-      `/customer/employee/${id}`
-    );
+    return await this.http.delete<{ message: string }>(`/customer/employee/${id}`);
   }
 }
