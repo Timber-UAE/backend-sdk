@@ -162,4 +162,22 @@ export class InvoiceService {
       data,
     });
   }
+
+  /**
+   * Download an invoice PDF by ID.
+   *
+   * @param id - The ID of the invoice to download.
+   * @returns A Buffer (Node.js) or Blob (browser) containing the PDF.
+   *
+   * @example
+   * ```ts
+   * const pdfBuffer = await client.invoice.download('invoice_id');
+   * fs.writeFileSync('invoice.pdf', pdfBuffer); // In Node.js
+   * ```
+   */
+  async download(id: string): Promise<AxiosResponse<ArrayBuffer>> {
+    return await this.http.get(`/customer/invoice/download/${id}`, {
+      responseType: 'arraybuffer', // Important: tells Axios to treat the response as binary
+    });
+  }
 }

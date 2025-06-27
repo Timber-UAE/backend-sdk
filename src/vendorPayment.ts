@@ -295,4 +295,22 @@ export class VendorPaymentService {
   async delete(id: string): Promise<AxiosResponse<{ message: string }>> {
     return await this.http.patch<{ message: string }>(`/customer/purchase/${id}`);
   }
+
+  /**
+   * Download a vendor payment PDF by ID.
+   *
+   * @param id - The ID of the vendor payment to download.
+   * @returns A Buffer (Node.js) or Blob (browser) containing the PDF.
+   *
+   * @example
+   * ```ts
+   * const pdfBuffer = await client.vendorPayment.download('vendor_payment_id');
+   * fs.writeFileSync('vendor_payment.pdf', pdfBuffer); // In Node.js
+   * ```
+   */
+  async download(id: string): Promise<AxiosResponse<ArrayBuffer>> {
+    return await this.http.get(`/customer/purchase/download/${id}`, {
+      responseType: 'arraybuffer', // Important: tells Axios to treat the response as binary
+    });
+  }
 }
