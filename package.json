@@ -27,7 +27,7 @@
     "dev": "nodemon src/index.js",
     "build": "tsc",
     "docs": "typedoc",
-    "prepare": "husky install",
+    "prepare": "husky",
     "lint": "eslint . --ext .ts,.js",
     "lint:fix": "eslint . --ext .ts,.js --fix"
   },
@@ -44,6 +44,8 @@
     "typescript-eslint": "^8.35.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@types/dotenv": "^6.1.1",
     "@types/node": "^24.0.4",
     "@typescript-eslint/eslint-plugin": "^8.35.0",
@@ -52,7 +54,7 @@
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.5.1",
     "globals": "^16.2.0",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "typedoc": "^0.28.5",
