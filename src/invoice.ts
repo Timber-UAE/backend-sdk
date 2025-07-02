@@ -101,6 +101,23 @@ export class InvoiceService {
     return await this.http.get<Invoice[]>('/customer/invoice', { params });
   }
 
+  /**
+   * Fetch an invoice by ID.
+   *
+   * @param id - The ID of the invoice to fetch.
+   * @returns The invoice matching the ID.
+   *
+   * @example
+   * ```ts
+   * const invoice = await client.invoice.get('invoice_id_here');
+   * console.log(invoice.data);
+   * ```
+   */
+
+  async get(id: string): Promise<AxiosResponse<Invoice>> {
+    return await this.http.get<Invoice>(`/customer/invoice/${id}`);
+  }
+
   async create(data: InvoiceData): Promise<AxiosResponse<Invoice>> {
     const formData = new FormData();
 
