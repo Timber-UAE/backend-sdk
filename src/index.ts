@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
 import axios from 'axios';
 import { ExpenseService } from './expense';
 import { RawExpenseService } from './rawExpense';
