@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import FormData from 'form-data';
+import { getFormData } from './utils/getFormData';
 
 export type NewInvoiceItem = {
   id: string;
@@ -119,7 +119,7 @@ export class InvoiceService {
   }
 
   async create(data: InvoiceData): Promise<AxiosResponse<Invoice>> {
-    const formData = new FormData();
+    const { formData, headers } = await getFormData();
 
     for (const key in data) {
       const value = (data as any)[key];
@@ -135,12 +135,13 @@ export class InvoiceService {
         formData.append(key, value.toString());
       }
     }
+
     return await this.http.post<Invoice>('/customer/invoice', formData, {
-      headers: formData.getHeaders(),
+      headers,
     });
   }
   async update(id: string, data: Partial<InvoiceData>): Promise<AxiosResponse<Invoice>> {
-    const formData = new FormData();
+    const { formData, headers } = await getFormData();
 
     for (const key in data) {
       const value = (data as any)[key];
@@ -157,7 +158,7 @@ export class InvoiceService {
       }
     }
     return await this.http.put<Invoice>(`/customer/invoice/${id}`, data, {
-      headers: formData.getHeaders(),
+      headers,
     });
   }
 

@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import FormData from 'form-data';
+import { getFormData } from './utils/getFormData';
 
 export interface CreateVendorPaymentRequest {
   title: string;
@@ -180,7 +180,7 @@ export class VendorPaymentService {
    * ```
    */
   async create(data: CreateVendorPaymentRequest): Promise<AxiosResponse<VendorPayment>> {
-    const formData = new FormData();
+    const { formData, headers } = await getFormData();
     try {
       Object.entries(data).forEach(([key, value]: any) => {
         if (key === 'customer' || key === 'biller') {
@@ -216,7 +216,7 @@ export class VendorPaymentService {
       formData.append('file', data.logo);
     }
     return await this.http.post<VendorPayment>('/customer/purchase', formData, {
-      headers: formData.getHeaders(),
+      headers,
     });
   }
 
@@ -239,7 +239,7 @@ export class VendorPaymentService {
     id: string,
     data: UpdateVendorPaymentRequest
   ): Promise<AxiosResponse<VendorPayment>> {
-    const formData = new FormData();
+    const { formData, headers } = await getFormData();
     try {
       Object.entries(data).forEach(([key, value]: any) => {
         if (key === 'customer' || key === 'biller') {
@@ -275,7 +275,7 @@ export class VendorPaymentService {
       formData.append('file', data.logo);
     }
     return await this.http.put<VendorPayment>(`/customer/purchase/${id}`, formData, {
-      headers: formData.getHeaders(),
+      headers,
     });
   }
 

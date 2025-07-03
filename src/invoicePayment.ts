@@ -1,4 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
+import { getFormData } from './utils/getFormData';
 
 export interface InvoicePaymentData {
   invoice: string;
@@ -6,6 +7,7 @@ export interface InvoicePaymentData {
   payment_method: string;
   cheque_no?: string;
   cheque_date?: string;
+  cheque_due_date?: string;
   bank_name?: string;
   file?: string;
   amount: string;
@@ -88,7 +90,29 @@ export class InvoicePaymentService {
    * ```
    */
   async create(data: InvoicePaymentData): Promise<AxiosResponse<InvoicePayment>> {
-    return await this.http.post<InvoicePayment>('/customer/invoice/payment-records', data);
+    const { formData, headers } = await getFormData();
+    formData.append('invoice', data.invoice);
+    formData.append('date', data.date);
+    formData.append('payment_method', data.payment_method);
+    if (data.cheque_no) {
+      formData.append('cheque_no', data.cheque_no);
+    }
+    if (data.cheque_date) {
+      formData.append('cheque_date', data.cheque_date);
+    }
+    if (data.cheque_due_date) {
+      formData.append('cheque_due_date', data.cheque_due_date);
+    }
+    if (data.bank_name) {
+      formData.append('bank_name', data.bank_name);
+    }
+    formData.append('amount', data.amount.toString());
+    if (data.file) {
+      formData.append('file', data.file[0]);
+    }
+    return await this.http.post<InvoicePayment>('/customer/invoice/payment-records', formData, {
+      headers,
+    });
   }
 
   /**
@@ -110,7 +134,35 @@ export class InvoicePaymentService {
     id: string,
     data: Partial<InvoicePaymentData>
   ): Promise<AxiosResponse<InvoicePayment>> {
-    return await this.http.put<InvoicePayment>(`/customer/invoice/payment-records/${id}`, data);
+    const { formData, headers } = await getFormData();
+    formData.append('invoice', data.invoice);
+    formData.append('date', data.date);
+    formData.append('payment_method', data.payment_method);
+    if (data.cheque_no) {
+      formData.append('cheque_no', data.cheque_no);
+    }
+    if (data.cheque_date) {
+      formData.append('cheque_date', data.cheque_date);
+    }
+    if (data.cheque_due_date) {
+      formData.append('cheque_due_date', data.cheque_due_date);
+    }
+    if (data.bank_name) {
+      formData.append('bank_name', data.bank_name);
+    }
+    if (data?.amount) {
+      formData.append('amount', data?.amount.toString());
+    }
+    if (data.file) {
+      formData.append('file', data.file[0]);
+    }
+    return await this.http.put<InvoicePayment>(
+      `/customer/invoice/payment-records/${id}`,
+      formData,
+      {
+        headers,
+      }
+    );
   }
 
   /**
