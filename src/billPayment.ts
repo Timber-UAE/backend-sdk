@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import FormData from 'form-data';
+import { getFormData } from './utils/getFormData';
 
 export interface CreateBillPaymentRequest {
   invoice: string;
@@ -100,7 +100,7 @@ export class BillPaymentService {
    */
 
   async create(data: CreateBillPaymentRequest): Promise<AxiosResponse<BillPayment>> {
-    const formData = new FormData();
+    const { formData, headers } = await getFormData();
     formData.append('invoice', data.invoice);
     formData.append('date', data.date);
     formData.append('payment_method', data.payment_method);
@@ -121,7 +121,7 @@ export class BillPaymentService {
       formData.append('file', data.file[0]);
     }
     return await this.http.post<BillPayment>('/customer/purchase/payment-record', formData, {
-      headers: formData.getHeaders(),
+      headers,
     });
   }
 
@@ -141,7 +141,7 @@ export class BillPaymentService {
    */
 
   async update(id: string, data: CreateBillPaymentRequest): Promise<AxiosResponse<BillPayment>> {
-    const formData = new FormData();
+    const { formData, headers } = await getFormData();
     formData.append('invoice', data.invoice);
     formData.append('date', data.date);
     formData.append('payment_method', data.payment_method);
@@ -162,7 +162,7 @@ export class BillPaymentService {
       formData.append('file', data.file[0]);
     }
     return await this.http.put<BillPayment>(`/customer/purchase/payment-record/${id}`, formData, {
-      headers: formData.getHeaders(),
+      headers,
     });
   }
 

@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import FormData from 'form-data';
+import { getFormData } from './utils/getFormData';
 
 export interface InvoicePaymentData {
   invoice: string;
@@ -90,7 +90,7 @@ export class InvoicePaymentService {
    * ```
    */
   async create(data: InvoicePaymentData): Promise<AxiosResponse<InvoicePayment>> {
-    const formData = new FormData();
+    const { formData, headers } = await getFormData();
     formData.append('invoice', data.invoice);
     formData.append('date', data.date);
     formData.append('payment_method', data.payment_method);
@@ -111,7 +111,7 @@ export class InvoicePaymentService {
       formData.append('file', data.file[0]);
     }
     return await this.http.post<InvoicePayment>('/customer/invoice/payment-records', formData, {
-      headers: formData.getHeaders(),
+      headers,
     });
   }
 
@@ -134,7 +134,7 @@ export class InvoicePaymentService {
     id: string,
     data: Partial<InvoicePaymentData>
   ): Promise<AxiosResponse<InvoicePayment>> {
-    const formData = new FormData();
+    const { formData, headers } = await getFormData();
     formData.append('invoice', data.invoice);
     formData.append('date', data.date);
     formData.append('payment_method', data.payment_method);
@@ -160,7 +160,7 @@ export class InvoicePaymentService {
       `/customer/invoice/payment-records/${id}`,
       formData,
       {
-        headers: formData.getHeaders(),
+        headers,
       }
     );
   }
