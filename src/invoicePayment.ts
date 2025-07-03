@@ -135,9 +135,15 @@ export class InvoicePaymentService {
     data: Partial<InvoicePaymentData>
   ): Promise<AxiosResponse<InvoicePayment>> {
     const { formData, headers } = await getFormData();
-    formData.append('invoice', data.invoice);
-    formData.append('date', data.date);
-    formData.append('payment_method', data.payment_method);
+    if (data.invoice) {
+      formData.append('invoice', data.invoice);
+    }
+    if (data.date) {
+      formData.append('date', data.date);
+    }
+    if (data.payment_method) {
+      formData.append('payment_method', data.payment_method);
+    }
     if (data.cheque_no) {
       formData.append('cheque_no', data.cheque_no);
     }
