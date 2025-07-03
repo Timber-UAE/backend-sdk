@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import FormData from 'form-data';
+import { getFormData } from './utils/getFormData';
 
 export interface CustomerData {
   name: string;
@@ -75,7 +75,7 @@ export class CustomerService {
    */
 
   async create(data: CustomerData): Promise<AxiosResponse<Customer>> {
-    const formData = new FormData();
+    const { formData, headers } = await getFormData();
 
     Object.entries(data).forEach(([key, value]: any) => {
       if (value instanceof File) {
@@ -86,7 +86,7 @@ export class CustomerService {
     });
 
     return await this.http.post<Customer>('/customer/customer', formData, {
-      headers: formData.getHeaders(),
+      headers,
     });
   }
 
@@ -106,7 +106,7 @@ export class CustomerService {
    */
 
   async update(id: string, data: Partial<CustomerData>): Promise<AxiosResponse<Customer>> {
-    const formData = new FormData();
+    const { formData, headers } = await getFormData();
     Object.entries(data).forEach(([key, value]: any) => {
       if (value instanceof File) {
         formData.append(key, value);
@@ -119,7 +119,7 @@ export class CustomerService {
       formData,
 
       {
-        headers: formData.getHeaders(),
+        headers,
       }
     );
   }
