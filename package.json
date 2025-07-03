@@ -1,6 +1,6 @@
 {
   "name": "timber-node",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Simplifying accounting and tax filing for businesses",
   "keywords": [
     "timber"
@@ -40,6 +40,7 @@
   "dependencies": {
     "axios": "^1.10.0",
     "form-data": "^4.0.3",
+    "timber-node": "^0.0.5",
     "typescript-eslint": "^8.35.0"
   },
   "devDependencies": {
