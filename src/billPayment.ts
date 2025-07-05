@@ -11,7 +11,7 @@ export interface CreateBillPaymentRequest {
   amount: number;
   bank_name?: string;
   is_paid: boolean;
-  file: [File];
+  file: File;
 }
 
 export type UpdateBillPaymentRequest = Partial<CreateBillPaymentRequest>;
@@ -118,7 +118,7 @@ export class BillPaymentService {
     }
     formData.append('amount', data.amount.toString());
     if (data.file) {
-      formData.append('file', data.file[0]);
+      formData.append('file', data.file);
     }
     return await this.http.post<BillPayment>('/customer/purchase/payment-record', formData, {
       headers,
@@ -159,7 +159,7 @@ export class BillPaymentService {
     }
     formData.append('amount', data.amount.toString());
     if (data.file) {
-      formData.append('file', data.file[0]);
+      formData.append('file', data.file);
     }
     return await this.http.put<BillPayment>(`/customer/purchase/payment-record/${id}`, formData, {
       headers,

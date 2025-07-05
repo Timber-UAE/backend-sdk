@@ -56,6 +56,7 @@ export interface VendorPayment {
   user: string;
   company: string;
   wafeq: boolean;
+  invoice?: string;
   zoho: boolean;
   created_at: string;
   updated_at: string;
