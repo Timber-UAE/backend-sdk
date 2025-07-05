@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosProgressEvent, AxiosResponse, CancelToken } from 'axios';
-import FormData from 'form-data';
+import { getFormData } from './utils/getFormData';
 
 export interface ChequeData {
   file: File | string;
@@ -71,14 +71,14 @@ export class ChequeService {
    * ```
    */
   async create(data: ChequeData): Promise<AxiosResponse<Cheque>> {
-    const formData = new FormData();
+    const { formData, headers } = await getFormData();
     if (data?.file) {
       formData.append('file', data.file);
     } else {
       throw new Error('File is required');
     }
     return await this.http.post<Cheque>('/customer/reconcile/cheque', formData, {
-      headers: formData.getHeaders(),
+      headers,
       cancelToken: data.cancelToken,
       onUploadProgress: data.progressCallback,
     });
