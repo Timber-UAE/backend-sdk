@@ -72,9 +72,9 @@ export class CompanyService {
    * ```
    */
 
-  async list(params: CompanyQueryParams = {}): Promise<AxiosResponse<Company[]>> {
-    return await this.http.get<Company[]>('/customer/company', { params });
-  }
+  // async list(params: CompanyQueryParams = {}): Promise<AxiosResponse<Company[]>> {
+  //   return await this.http.get<Company[]>('/customer/company', { params });
+  // }
 
   /**
    * Fetch an company by ID.
@@ -89,8 +89,8 @@ export class CompanyService {
    * ```
    */
 
-  async get(id: string): Promise<AxiosResponse<Company>> {
-    return await this.http.get<Company>(`/customer/company/${id}`);
+  async get(): Promise<AxiosResponse<Company>> {
+    return await this.http.get<Company>(`/customer/company`);
   }
 
   /**
