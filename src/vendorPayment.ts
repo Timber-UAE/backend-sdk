@@ -51,10 +51,11 @@ export interface CreateVendorPaymentRequest {
 
 export type UpdateVendorPaymentRequest = Partial<CreateVendorPaymentRequest>;
 
-export interface VendorPayment {
+export interface VendorPayment extends CreateVendorPaymentRequest {
   _id: string;
   user: string;
   company: string;
+  postdated_payment?: number;
   wafeq: boolean;
   zoho: boolean;
   created_at: string;

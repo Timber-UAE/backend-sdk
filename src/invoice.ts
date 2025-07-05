@@ -57,6 +57,7 @@ export interface InvoiceData {
 
 export interface Invoice extends InvoiceData {
   _id: string;
+  postdated_payment?: number;
   created_at?: string;
   updated_at?: string;
 }
