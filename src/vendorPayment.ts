@@ -57,6 +57,7 @@ export interface VendorPayment extends CreateVendorPaymentRequest {
   company: string;
   postdated_payment?: number;
   wafeq: boolean;
+  invoice?: string;
   zoho: boolean;
   created_at: string;
   updated_at: string;

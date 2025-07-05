@@ -108,7 +108,7 @@ export class InvoicePaymentService {
     }
     formData.append('amount', data.amount.toString());
     if (data.file) {
-      formData.append('file', data.file[0]);
+      formData.append('file', data.file);
     }
     return await this.http.post<InvoicePayment>('/customer/invoice/payment-records', formData, {
       headers,
@@ -160,7 +160,7 @@ export class InvoicePaymentService {
       formData.append('amount', data?.amount.toString());
     }
     if (data.file) {
-      formData.append('file', data.file[0]);
+      formData.append('file', data.file);
     }
     return await this.http.put<InvoicePayment>(
       `/customer/invoice/payment-records/${id}`,
