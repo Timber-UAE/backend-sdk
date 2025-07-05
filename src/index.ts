@@ -37,9 +37,9 @@ class TimberClient {
       baseURL: baseURL,
       headers: {
         Authorization: `ApiKey ${apiKey}`,
-        'Content-Type': 'application/json',
       },
     });
+    delete http.defaults.headers.post['Content-Type'];
 
     this.expense = new ExpenseService(http);
     this.expenseCategory = new ExpenseCategoryService(http);
