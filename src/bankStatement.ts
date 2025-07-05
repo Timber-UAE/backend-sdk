@@ -1,8 +1,11 @@
-import { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosInstance, AxiosProgressEvent, AxiosResponse, CancelToken } from 'axios';
 import FormData from 'form-data';
 
 export interface BankStatementData {
   file: File | string;
+  // eslint-disable-next-line no-unused-vars
+  progressCallback?: (_progressEvent: AxiosProgressEvent) => void;
+  cancelToken?: CancelToken;
 }
 
 export interface BankStatement extends BankStatementData {
@@ -71,12 +74,13 @@ export class BankStatementService {
     const formData = new FormData();
     if (data?.file) {
       formData.append('file', data.file);
-      formData.append('company', '6777a90c5cd5d327209fa239');
     } else {
       throw new Error('File is required');
     }
     return await this.http.post<BankStatement>('/customer/reconcile/bank-statement', formData, {
       headers: formData.getHeaders(),
+      cancelToken: data.cancelToken,
+      onUploadProgress: data.progressCallback,
     });
   }
 }

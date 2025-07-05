@@ -3,7 +3,7 @@ import { getFormData } from './utils/getFormData';
 
 export interface CustomerData {
   name: string;
-  email: number;
+  email: string;
   mobile?: string;
   country_code?: string;
   country?: string;

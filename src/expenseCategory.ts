@@ -17,10 +17,15 @@ export interface ExpenseCategory {
   updated_at: string;
 }
 
+export type ExpenseCategoryResponse = {
+  expense_categories: ExpenseCategory[];
+};
+
 export interface ExpenseCategoryQueryParams {
   page: number;
   limit: number;
   sort: string;
+  search: string;
   filters: string;
 }
 
@@ -56,8 +61,8 @@ export class ExpenseCategoryService {
    * ```
    */
 
-  async list(params: ExpenseCategoryQueryParams): Promise<AxiosResponse<ExpenseCategory[]>> {
-    return await this.http.get<ExpenseCategory[]>('/customer/expense/category', {
+  async list(params: ExpenseCategoryQueryParams): Promise<AxiosResponse<ExpenseCategoryResponse>> {
+    return await this.http.get<ExpenseCategoryResponse>('/customer/expense/category', {
       params,
     });
   }

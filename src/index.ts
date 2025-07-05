@@ -64,3 +64,5 @@ export const createClient = (apiKey: string, options = {}) => {
   }
   return new TimberClient(apiKey, options);
 };
+
+export type TimberClientType = InstanceType<typeof TimberClient>;
