@@ -15,6 +15,7 @@ import { BankStatementService } from './bankStatement';
 import { CompanyService } from './company';
 import { InvoiceNumberService } from './invoiceNumber';
 import { InvoiceTemplateService } from './invoiceTemplates';
+import { InvoiceItemService } from './invoiceItem';
 
 class TimberClient {
   expense: ExpenseService;
@@ -33,6 +34,7 @@ class TimberClient {
   company: CompanyService;
   invoiceNumber: InvoiceNumberService;
   invoiceTemplate: InvoiceTemplateService;
+  invoiceItem: InvoiceItemService;
 
   constructor(apiKey: string, options: { baseURL?: string } = {}) {
     const baseURL = `${options.baseURL || 'http://localhost:4010'}/api/v1/user/sdk`;
@@ -44,6 +46,9 @@ class TimberClient {
       },
     });
     delete http.defaults.headers.post['Content-Type'];
+    // http.interceptors.response.use((response) => {
+    //   return response.data?.data ?? response.data;
+    // });
 
     this.expense = new ExpenseService(http);
     this.expenseCategory = new ExpenseCategoryService(http);
@@ -61,6 +66,7 @@ class TimberClient {
     this.company = new CompanyService(http);
     this.invoiceNumber = new InvoiceNumberService(http);
     this.invoiceTemplate = new InvoiceTemplateService(http);
+    this.invoiceItem = new InvoiceItemService(http);
   }
 }
 

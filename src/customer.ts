@@ -23,6 +23,7 @@ export interface Customer extends CustomerData {
 export interface CustomerQueryParams {
   page?: number;
   limit?: number;
+  role: 'customer' | 'vendor' | 'biller';
 }
 
 /**
@@ -57,7 +58,9 @@ export class CustomerService {
    * ```
    */
 
-  async list(params: CustomerQueryParams = {}): Promise<AxiosResponse<Customer[]>> {
+  async list(
+    params: CustomerQueryParams = { role: 'customer' }
+  ): Promise<AxiosResponse<Customer[]>> {
     return await this.http.get<Customer[]>('/customer/customer', { params });
   }
 
