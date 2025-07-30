@@ -28,6 +28,10 @@ export interface InvoiceItemQueryParams {
   filters?: string;
 }
 
+interface SuggestionParams {
+  search: string;
+}
+
 /**
  * Service for Invoice Item
  *
@@ -54,13 +58,32 @@ export class InvoiceItemService {
    *
    * @example
    * ```ts
-   * const invoiceItems = await client.InvoiceItem.list();
+   * const invoiceItems = await client.InvoiceItem.list({page: 1, limit: 10});
    * console.log(invoiceItems.data);
    * ```
    */
 
-  async list(): Promise<AxiosResponse<InvoiceItem>> {
-    return await this.http.get<InvoiceItem>('/customer/invoice-item');
+  async list(params: InvoiceItemQueryParams): Promise<AxiosResponse<InvoiceItem>> {
+    return await this.http.get<InvoiceItem>('/customer/invoice-item', { params });
+  }
+
+  /**
+   * Invoice Item suggestions.
+   *
+   * @param params
+   * @returns
+   *
+   * @example
+   * ```ts
+   * const invoiceItems = await client.InvoiceItem.suggestions({search: ''});
+   * console.log(invoiceItems.data);
+   * ```
+   */
+
+  async suggestions({ search }: SuggestionParams): Promise<AxiosResponse<InvoiceItem>> {
+    return await this.http.get<InvoiceItem>('/customer/invoice-item/suggestions', {
+      params: { search },
+    });
   }
 
   /**
