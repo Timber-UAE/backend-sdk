@@ -10,12 +10,6 @@ Easily interact with Timber's core features like managing expenses, invoices, ve
 npm install timber-node
 ```
 
-Or install directly from the GitHub repo:
-
-```bash
-npm install git+https://github.com/Timber-UAE/timber-be-sdk-s.git
-```
-
 ## Getting Started
 
 ```typescript
