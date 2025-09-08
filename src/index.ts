@@ -37,7 +37,7 @@ class TimberClient {
   invoiceItem: InvoiceItemService;
 
   constructor(apiKey: string, options: { baseURL?: string } = {}) {
-    const baseURL = `${options.baseURL || ' https://0872545c9c69.ngrok-free.app'}/api/v1/user/sdk`;
+    const baseURL = `${options.baseURL || 'https://api.timber.me'}/api/v1/user/sdk`;
 
     const http = axios.create({
       baseURL: baseURL,
