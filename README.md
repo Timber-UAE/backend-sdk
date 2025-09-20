@@ -26,7 +26,7 @@ console.log(expenses.data);
 
 ## Authentication
 
-Timber uses API Key-based authentication. Generate this API key from your Timber profile settings.
+Timber uses API Key-based authentication. Generate this API key from your Timber profile developer settings.
 
 ```typescript
 const client = createClient('your-api-key');
@@ -62,11 +62,11 @@ Each service provides common operations like `create`, `get`, `list`, `update`, 
 
 ```typescript
 const response = await client.expense.create({
-  type: 'travel',
+  type: 'Travel',
   merchant: 'Uber',
   category: 'Transportation',
   date: '2025-06-23',
-  payment_method: 'credit_card',
+  payment_method: 'cash',
   amount: 45.75,
 });
 console.log(response.data);
