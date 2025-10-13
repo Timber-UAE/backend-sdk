@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AuthService } from './auth';
 import { ExpenseService } from './expense';
 import { RawExpenseService } from './rawExpense';
 import { VendorPaymentService } from './vendorPayment';
@@ -18,6 +19,7 @@ import { InvoiceTemplateService } from './invoiceTemplates';
 import { InvoiceItemService } from './invoiceItem';
 
 class TimberClient {
+  auth: AuthService;
   expense: ExpenseService;
   expenseCategory: ExpenseCategoryService;
   rawExpense: RawExpenseService;
@@ -36,9 +38,10 @@ class TimberClient {
   invoiceTemplate: InvoiceTemplateService;
   invoiceItem: InvoiceItemService;
 
-  constructor(apiKey: string, options: { baseURL?: string } = {}) {
+  constructor(apiKey: string, options: { baseURL?: string; partnerAPIKey?: string } = {}) {
     const baseURL = `${options.baseURL || 'https://api.timber.me'}/api/v1/user/sdk`;
 
+    // Create HTTP client for regular services (non-auth)
     const http = axios.create({
       baseURL: baseURL,
       headers: {
@@ -46,10 +49,19 @@ class TimberClient {
       },
     });
     delete http.defaults.headers.post['Content-Type'];
-    // http.interceptors.response.use((response) => {
-    //   return response.data?.data ?? response.data;
-    // });
 
+    // Create HTTP client for auth service only (with partner API key if provided)
+    const authHttp = axios.create({
+      baseURL: baseURL,
+      headers: {
+        Authorization: options?.partnerAPIKey
+          ? `Bearer ${options.partnerAPIKey}`
+          : `ApiKey ${apiKey}`,
+      },
+    });
+    delete authHttp.defaults.headers.post['Content-Type'];
+
+    this.auth = new AuthService(authHttp);
     this.expense = new ExpenseService(http);
     this.expenseCategory = new ExpenseCategoryService(http);
     this.rawExpense = new RawExpenseService(http);
@@ -70,8 +82,8 @@ class TimberClient {
   }
 }
 
-export const createClient = (apiKey: string, options = {}) => {
-  if (!apiKey) {
+export const createClient = (apiKey: string, options = { partnerAPIKey: '', baseURL: '' }) => {
+  if (!apiKey && !options.partnerAPIKey) {
     throw new Error('API key is required');
   }
   return new TimberClient(apiKey, options);
